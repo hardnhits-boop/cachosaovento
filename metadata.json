@@ -1,0 +1,6 @@
+{
+  "name": "Salão Cachos ao Vento",
+  "description": "Um site premium para salão de cabeleireiro especializado em cabelos crespos, cacheados e transição capilar, com galeria, mapa interativo e agendamento via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

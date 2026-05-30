@@ -1,0 +1,34 @@
+Como Usar Suas Próprias Imagens de Antes e Depois
+===================================================
+
+Você está hospedando este site no Netlify, o que é excelente! Para que as suas fotos reais do salão apareçam no site sem você precisar alterar o código, siga estas etapas simples:
+
+1. Escolha ou tire as fotos de Antes e Depois dos seus trabalhos de transformação capilar.
+2. Mude o nome desses arquivos de imagem exatamente para os seguintes nomes (tudo em letra minúscula):
+
+   - Para a Transformação 1:
+     • "1antes.jpg"
+     • "1depois.jpg"
+
+   - Para a Transformação 2:
+     • "2antes.jpg"
+     • "2depois.jpg"
+
+   - Para a Transformação 3:
+     • "3antes.jpg"
+     • "3depois.jpg"
+
+   - Para a Transformação 4:
+     • "4antes.jpg"
+     • "4depois.jpg"
+
+   - Para a Transformação 5:
+     • "5antes.jpg"
+     • "5depois.jpg"
+
+3. Coloque esses arquivos diretamente dentro desta pasta:
+   => no seu projeto local, ela fica em: `/public/images/`
+
+4. Quando você fizer o deploy no Netlify, o Netlify vai reconhecer essas fotos de forma 100% automática e exibi-las no site!
+
+*Nota: Se você não colocar nenhuma imagem nesta pasta, o site não vai quebrar! O código foi preparado por nós para carregar automaticamente fotos profissionais da internet (Unsplash) como alternativa (fallback).*

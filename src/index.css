@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Overwrite stone scale with the custom Sophisticated Dark grays and creams */
+  --color-stone-950: #0A0A0A;
+  --color-stone-900: #0F0F0F;
+  --color-stone-850: #141210;
+  --color-stone-800: #1A1612;
+  --color-stone-700: #26211A;
+  --color-stone-600: #332B21;
+  --color-stone-500: #574F44;
+  --color-stone-400: #A39887;
+  --color-stone-300: #C6BCAC;
+  --color-stone-200: #E0D7C6;
+  --color-stone-100: #F2E8D5;
+
+  /* Overwrite amber / yellow scales with Sophisticated Dark luxury golds */
+  --color-amber-950: #2A241A;
+  --color-amber-900: #3E3425;
+  --color-amber-800: #584A34;
+  --color-amber-700: #786445;
+  --color-amber-600: #9C8259;
+  --color-amber-500: #C5A059;
+  --color-amber-400: #DBC18C;
+  --color-yellow-500: #C5A059;
+  --color-yellow-400: #DBC18C;
+}
+
+/* Custom visual utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Base custom font selection mappings */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-stone-950);
+  color: var(--color-stone-200);
+}
