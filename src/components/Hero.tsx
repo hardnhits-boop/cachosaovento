@@ -6,11 +6,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { SERVICES } from "../types";
+import { STORE_UNITS } from "../types";
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
   onSelectService: (serviceName: string) => void;
+  selectedUnit?: "anchieta" | "petropolis";
 }
 
 const WhatsAppIconLeft = () => (
@@ -19,7 +20,8 @@ const WhatsAppIconLeft = () => (
   </svg>
 );
 
-export default function Hero({ onNavigate, onSelectService }: HeroProps) {
+export default function Hero({ onNavigate, onSelectService, selectedUnit = "anchieta" }: HeroProps) {
+  const activeStore = STORE_UNITS.find(u => u.id === selectedUnit) || STORE_UNITS[0];
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const heroImages = [
     "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?q=80&w=1200",
@@ -27,6 +29,11 @@ export default function Hero({ onNavigate, onSelectService }: HeroProps) {
     "https://images.unsplash.com/photo-1595959183075-c1d0a1a1964d?q=80&w=1200",
     "https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=1200"
   ];
+
+  const handleDirectWhatsApp = () => {
+    const text = `Olá! Gostaria de agendar um horário no Salão Cachos ao Vento (${activeStore.name}).`;
+    window.open(`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,12 +73,12 @@ export default function Hero({ onNavigate, onSelectService }: HeroProps) {
           {/* Buttons CTA */}
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <button
-              onClick={() => onNavigate("agendamento")}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-700 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-stone-950 font-bold uppercase tracking-widest text-xs shadow-xl shadow-amber-950/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2.5 group animate-pulse"
-              style={{ animationDuration: '3s' }}
+              onClick={handleDirectWhatsApp}
+              className="px-8 py-4 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-stone-950 font-bold uppercase tracking-widest text-xs shadow-xl shadow-emerald-950/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2.5 group"
+              title={`Chamar no WhatsApp (${activeStore.phone})`}
             >
               <WhatsAppIconLeft />
-              Agendar Horário
+              Agendar no WhatsApp
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button

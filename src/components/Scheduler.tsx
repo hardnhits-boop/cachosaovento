@@ -105,9 +105,12 @@ export default function Scheduler({ preselectedServiceName, onClearPreselectedSe
               <WhatsAppIcon />
             </div>
             
-            <h3 className="font-sans font-black text-xl text-stone-100 uppercase tracking-wider mb-2">
+            <h3 className="font-sans font-black text-xl text-stone-100 uppercase tracking-wider mb-1">
               Chamar no WhatsApp
             </h3>
+            <span className="text-emerald-400 font-mono text-xs font-bold mb-3 block">
+              {activeStore.phone}
+            </span>
             
             <p className="font-sans text-xs sm:text-sm text-stone-400 leading-relaxed max-w-xs mb-8">
               Fale direto com a nossa equipe da <strong className="text-emerald-400 font-bold">{activeStore.name}</strong> para escolher o profissional, agendar sua vaga ou tirar suas dúvidas em minutos.

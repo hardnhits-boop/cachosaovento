@@ -271,8 +271,8 @@ export const STORE_UNITS: StoreUnit[] = [
     address: "Estrada do Engenho Novo, 340",
     addressDetail: "Anchieta, Rio de Janeiro - RJ",
     cep: "21635-010 (Próximo à linha ferroviária)",
-    phone: "(21) 97711-2233",
-    whatsappNumber: "5521977112233",
+    phone: "(21) 96634-8617",
+    whatsappNumber: "5521966348617",
     mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Estrada+do+Engenho+Novo,+340+-+Anchieta,+Rio+de+Janeiro+-+RJ,+21635-010",
     startingPoints: [
       {
@@ -320,8 +320,8 @@ export const STORE_UNITS: StoreUnit[] = [
     address: "Rua do Imperador, 820",
     addressDetail: "Centro, Petrópolis - RJ",
     cep: "25620-001 (Ao lado do Passeio Público)",
-    phone: "(24) 98822-4455",
-    whatsappNumber: "5524988224455",
+    phone: "(21) 99059-9641",
+    whatsappNumber: "5521990599641",
     mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Rua+do+Imperador,+820+-+Centro,+Petropolis+-+RJ,+25620-001",
     startingPoints: [
       {

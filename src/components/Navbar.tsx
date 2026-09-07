@@ -6,6 +6,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, Scissors, Calendar, MapPin, Instagram, Sparkles, Clock, Phone, Droplet, Palette, Paintbrush, Wind } from "lucide-react";
+import { STORE_UNITS } from "../types";
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -15,6 +16,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onNavigate, activeSection, selectedUnit, onUnitChange }: NavbarProps) {
+  const activeStore = STORE_UNITS.find(u => u.id === selectedUnit) || STORE_UNITS[0];
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -191,6 +193,20 @@ export default function Navbar({ onNavigate, activeSection, selectedUnit, onUnit
               <span className="hidden xl:inline text-[10px] uppercase font-bold tracking-wider">@cachosaoventorj</span>
             </a>
 
+            {/* Direct WhatsApp Link Button */}
+            <a 
+              href={`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de falar com o Salão Cachos ao Vento (${activeStore.name}).`)}`}
+              target="_blank" 
+              rel="noreferrer" 
+              className="ml-2 p-2.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 hover:text-white hover:bg-emerald-600 hover:border-emerald-400 transition-all cursor-pointer flex items-center justify-center gap-1 text-xs font-bold shadow-md shadow-emerald-950/40"
+              title={`Chamar no WhatsApp (${activeStore.phone})`}
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.62.962 3.238 1.484 5.352 1.486 5.424 0 9.835-4.407 9.839-9.833.002-2.63-1.011-5.1-2.853-6.945C17.09 1.957 14.63 1.006 12 1.006c-5.42 0-9.83 4.406-9.834 9.835-.002 2.158.56 3.791 1.543 5.405L2.68 21.415l5.228-1.371zM17.15 14.54c-.282-.143-1.67-.824-1.929-.918-.258-.093-.446-.142-.635.143-.188.285-.73.919-.893 1.1-.164.184-.327.208-.61.066-.282-.143-1.192-.44-2.271-1.402-.839-.748-1.405-1.67-1.57-1.954-.163-.283-.018-.437.124-.577.127-.126.283-.329.424-.492.143-.165.19-.283.284-.472.093-.19.047-.354-.024-.493-.07-.143-.635-1.53-.87-2.083-.228-.547-.48-.471-.659-.48l-.56-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.013-1.04 2.471 0 1.457 1.06 2.864 1.208 3.061.149.198 2.086 3.186 5.05 4.47.705.305 1.256.488 1.685.625.708.226 1.353.194 1.862.118.568-.085 1.67-.682 1.905-1.34.235-.658.235-1.223.164-1.34-.07-.117-.258-.19-.54-.332z" />
+              </svg>
+              <span className="hidden xl:inline text-[10px] uppercase font-bold tracking-wider text-emerald-300">WhatsApp</span>
+            </a>
+
             {/* Agendar CTA in navbar */}
             <button
               onClick={() => handleLinkClick("agendamento")}
@@ -271,13 +287,18 @@ export default function Navbar({ onNavigate, activeSection, selectedUnit, onUnit
                   </span>
                 </button>
               ))}
-              <div className="pt-4 px-4">
-                <button
-                  onClick={() => handleLinkClick("agendamento")}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-700 to-yellow-600 hover:from-amber-600 hover:to-yellow-500 text-stone-950 font-bold uppercase tracking-widest text-center text-xs shadow-lg shadow-yellow-950/20 block cursor-pointer"
+              <div className="pt-4 px-4 space-y-2">
+                <a
+                  href={`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de agendar um atendimento no Salão Cachos ao Vento (${activeStore.name}).`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase tracking-widest text-center text-xs shadow-lg shadow-emerald-950/40 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Agendar via WhatsApp
-                </button>
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.62.962 3.238 1.484 5.352 1.486 5.424 0 9.835-4.407 9.839-9.833.002-2.63-1.011-5.1-2.853-6.945C17.09 1.957 14.63 1.006 12 1.006c-5.42 0-9.83 4.406-9.834 9.835-.002 2.158.56 3.791 1.543 5.405L2.68 21.415l5.228-1.371zM17.15 14.54c-.282-.143-1.67-.824-1.929-.918-.258-.093-.446-.142-.635.143-.188.285-.73.919-.893 1.1-.164.184-.327.208-.61.066-.282-.143-1.192-.44-2.271-1.402-.839-.748-1.405-1.67-1.57-1.954-.163-.283-.018-.437.124-.577.127-.126.283-.329.424-.492.143-.165.19-.283.284-.472.093-.19.047-.354-.024-.493-.07-.143-.635-1.53-.87-2.083-.228-.547-.48-.471-.659-.48l-.56-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.013-1.04 2.471 0 1.457 1.06 2.864 1.208 3.061.149.198 2.086 3.186 5.05 4.47.705.305 1.256.488 1.685.625.708.226 1.353.194 1.862.118.568-.085 1.67-.682 1.905-1.34.235-.658.235-1.223.164-1.34-.07-.117-.258-.19-.54-.332z" />
+                  </svg>
+                  Conversar no WhatsApp ({activeStore.phone})
+                </a>
               </div>
             </div>
           </motion.div>
