@@ -129,9 +129,19 @@ export default function Footer({ onNavigate, selectedUnit }: FooterProps) {
               <div className="flex items-start gap-2.5 pt-1">
                 <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-stone-300 block">Endereço Ativo:</span>
-                  <span className="text-stone-300 block font-semibold">{activeStore.name}</span>
-                  <span className="text-[11px] text-stone-400 block">{activeStore.addressDetail}</span>
+                  <span className="font-bold text-stone-300 block">Endereços por Unidade:</span>
+                  <div className="space-y-1.5 mt-1">
+                    <div>
+                      <span className="text-stone-400 text-xs block font-medium">Unidade Anchieta:</span>
+                      <span className="text-stone-300 text-xs font-semibold block">Capitão Mário Barbedo, 366</span>
+                      <span className="text-[11px] text-stone-500 block">Anchieta, Rio de Janeiro - RJ</span>
+                    </div>
+                    <div>
+                      <span className="text-stone-400 text-xs block font-medium">Unidade Petrópolis:</span>
+                      <span className="text-stone-300 text-xs font-semibold block">Rua Teresa</span>
+                      <span className="text-[11px] text-stone-500 block">Petrópolis - RJ</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

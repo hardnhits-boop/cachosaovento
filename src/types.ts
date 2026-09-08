@@ -268,33 +268,33 @@ export const STORE_UNITS: StoreUnit[] = [
     id: "anchieta",
     name: "Unidade Anchieta",
     city: "Anchieta - Rio de Janeiro / RJ",
-    address: "Estrada do Engenho Novo, 340",
+    address: "Capitão Mário Barbedo, 366",
     addressDetail: "Anchieta, Rio de Janeiro - RJ",
-    cep: "21635-010 (Próximo à linha ferroviária)",
+    cep: "21655-000 (Anchieta - RJ)",
     phone: "(21) 96634-8617",
     whatsappNumber: "5521966348617",
-    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Estrada+do+Engenho+Novo,+340+-+Anchieta,+Rio+de+Janeiro+-+RJ,+21635-010",
+    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Capit%C3%A3o+M%C3%A1rio+Barbedo,+366+-+Anchieta,+Rio+de+Janeiro+-+RJ",
     startingPoints: [
       {
         id: "trem-anchieta",
         name: "Estação de Trem Anchieta",
-        distance: "400 metros",
+        distance: "450 metros",
         duration: "5 min (caminhando)",
-        instructions: "Saia da estação de trem de Anchieta, siga à esquerda na Rua Aiuruoca e vire à direita na Estrada do Engenho Novo até o número 340."
+        instructions: "A partir da estação de trem de Anchieta, siga em direção à Rua Capitão Mário Barbedo até o número 366."
       },
       {
         id: "via-light",
         name: "Via Light / Parque Anchieta",
-        distance: "2.1 km",
-        duration: "6 min (carro/Uber)",
-        instructions: "Acesse a Estrada do Engenho Novo a partir da alça de acesso da Via Light ou Av. Nazaré, seguindo direto no sentido Anchieta."
+        distance: "2 km",
+        duration: "5 min (carro/Uber)",
+        instructions: "Acesse Anchieta pela Via Light ou Estrada Marechal Alencastro e siga até a Rua Capitão Mário Barbedo, nº 366."
       },
       {
         id: "praca-anchieta",
         name: "Praça de Anchieta",
-        distance: "600 metros",
-        duration: "8 min (caminhando)",
-        instructions: "Atravesse a praça principal de Anchieta, siga pela Rua Lúcio José Filho e caminhe direto até cruzar com a Estrada do Engenho Novo."
+        distance: "400 metros",
+        duration: "5 min (caminhando)",
+        instructions: "A partir da praça principal de Anchieta, caminhe até a Rua Capitão Mário Barbedo, nº 366."
       }
     ],
     mapCoordinates: {
@@ -316,34 +316,34 @@ export const STORE_UNITS: StoreUnit[] = [
   {
     id: "petropolis",
     name: "Unidade Petrópolis",
-    city: "Centro - Petrópolis / RJ",
-    address: "Rua do Imperador, 820",
-    addressDetail: "Centro, Petrópolis - RJ",
-    cep: "25620-001 (Ao lado do Passeio Público)",
+    city: "Petrópolis / RJ",
+    address: "Rua Teresa",
+    addressDetail: "Petrópolis - RJ",
+    cep: "25625-018 (Petrópolis - RJ)",
     phone: "(21) 99059-9641",
     whatsappNumber: "5521990599641",
-    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Rua+do+Imperador,+820+-+Centro,+Petropolis+-+RJ,+25620-001",
+    mapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Rua+Teresa+-+Petr%C3%B3polis+-+RJ",
     startingPoints: [
       {
         id: "terminal-centro",
         name: "Terminal Centro Petrópolis",
-        distance: "500 metros",
-        duration: "6 min (caminhando)",
-        instructions: "Saia do Terminal Rodoviário do Centro, contorne a Av. Koeler e vire na Rua do Imperador em direção ao número 820, ao lado das lojas principais."
+        distance: "1 km",
+        duration: "5 min (carro/Uber)",
+        instructions: "Saia do Terminal Rodoviário do Centro e siga em direção ao tradicional polo da Rua Teresa."
       },
       {
         id: "quitandinha",
         name: "Quitandinha (Pórtico)",
-        distance: "5.8 km",
-        duration: "12 min (carro/Uber)",
-        instructions: "Entre pelo pórtico do Quitandinha, desça pela Av. Ayrton Senna, continue na Rua Coronel Veiga e adentre a Rua do Imperador no Centro."
+        distance: "5 km",
+        duration: "10 min (carro/Uber)",
+        instructions: "Entre pelo pórtico do Quitandinha, continue pela Rua Coronel Veiga e adentre a Rua Teresa."
       },
       {
         id: "catedral-petropolis",
-        name: "Catedral de São Pedro",
-        distance: "650 metros",
-        duration: "8 min (caminhando)",
-        instructions: "Saia da Catedral de São Pedro de Alcântara, desça pela tradicional Av. Tiradentes e vire à esquerda acessando a Rua do Imperador."
+        name: "Centro Histórico",
+        distance: "1 km",
+        duration: "4 min (carro/Uber)",
+        instructions: "A partir do Centro Histórico e Catedral de Petrópolis, acesse o polo da Rua Teresa."
       }
     ],
     mapCoordinates: {
