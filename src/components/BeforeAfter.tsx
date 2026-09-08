@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { ArrowRightLeft, ZoomIn, X, Sparkles, UploadCloud, CheckCircle2, RotateCcw } from "lucide-react";
+import { ArrowRightLeft, ZoomIn, X, Sparkles } from "lucide-react";
 
 interface BeforeAfterItem {
   id: number;
@@ -79,7 +79,6 @@ export default function BeforeAfter() {
   const [imageStages, setImageStages] = useState<Record<string, number>>({});
   const [customImages, setCustomImages] = useState<Record<string, string>>({});
   const [activeModal, setActiveModal] = useState<ModalInfo | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   // Load custom photos from localStorage if available
   useEffect(() => {
@@ -111,69 +110,6 @@ export default function BeforeAfter() {
     });
   };
 
-  const toBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
-    });
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const newCustom: Record<string, string> = { ...customImages };
-    let matchedCount = 0;
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const name = file.name.toLowerCase();
-      try {
-        const base64 = await toBase64(file);
-
-        for (let id = 1; id <= 5; id++) {
-          if (name.includes(`antes${id}`) || name.includes(`${id}antes`)) {
-            newCustom[`before-${id}`] = base64;
-            matchedCount++;
-          } else if (name.includes(`depois${id}`) || name.includes(`${id}depois`)) {
-            newCustom[`after-${id}`] = base64;
-            matchedCount++;
-          }
-        }
-
-        // Also notify dev server to save file directly to /public
-        const pureBase64 = base64.split(",")[1] || base64;
-        await fetch("/api/upload-photo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ filename: file.name, data: pureBase64 })
-        }).catch(() => {});
-      } catch (err) {
-        console.error("Error reading file:", file.name, err);
-      }
-    }
-
-    setCustomImages(newCustom);
-    try {
-      localStorage.setItem("salao_custom_photos", JSON.stringify(newCustom));
-    } catch (err) {
-      console.warn("Storage quota reached:", err);
-    }
-
-    setUploadStatus(`${matchedCount} foto(s) identificada(s) e ativadas no preview!`);
-    setTimeout(() => setUploadStatus(null), 6000);
-  };
-
-  const handleResetPhotos = () => {
-    setCustomImages({});
-    try {
-      localStorage.removeItem("salao_custom_photos");
-    } catch (e) {}
-    setUploadStatus("Fotos restauradas para a demonstração.");
-    setTimeout(() => setUploadStatus(null), 4000);
-  };
-
   const getImageSrc = (item: BeforeAfterItem, type: "before" | "after") => {
     const key = `${type}-${item.id}`;
     if (customImages[key]) {
@@ -187,8 +123,6 @@ export default function BeforeAfter() {
     }
     return type === "before" ? item.beforeFallback : item.afterFallback;
   };
-
-  const customCount = Object.keys(customImages).length;
 
   return (
     <section id="antes-depois" className="bg-stone-950 py-10 border-t border-stone-850 relative overflow-hidden">
@@ -210,57 +144,6 @@ export default function BeforeAfter() {
           <p className="font-sans text-stone-300 text-xs sm:text-sm mt-3 leading-relaxed">
             Compare o estado inicial com os resultados surpreendentes de nossas clientes. Toque ou clique em qualquer foto para <span className="text-amber-400 font-semibold">ampliar e ver em tela cheia</span>.
           </p>
-        </div>
-
-        {/* Sync / Upload Helper for live preview */}
-        <div className="max-w-3xl mx-auto mb-8 bg-stone-900/80 border border-amber-500/30 rounded-2xl p-3 sm:p-4 shadow-xl backdrop-blur-sm">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-left">
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-amber-400">
-                <UploadCloud className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>Ativar suas fotos reais no Preview</span>
-                {customCount > 0 && (
-                  <span className="ml-2 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[10px] text-emerald-400 font-mono">
-                    {customCount} de 10 ativas
-                  </span>
-                )}
-              </div>
-              <p className="text-[11px] sm:text-xs text-stone-300 mt-0.5">
-                Clique ao lado e selecione os arquivos do seu computador (ex: <code>antes1.jpg</code> a <code>depois5.jpg</code>).
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2 shrink-0">
-              <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95">
-                <UploadCloud className="w-4 h-4" />
-                <span>Carregar Fotos</span>
-                <input 
-                  type="file" 
-                  multiple 
-                  accept="image/*" 
-                  onChange={handleFileUpload} 
-                  className="hidden" 
-                />
-              </label>
-
-              {customCount > 0 && (
-                <button
-                  onClick={handleResetPhotos}
-                  className="p-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-stone-200 transition-colors"
-                  title="Restaurar fotos de demonstração"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {uploadStatus && (
-            <div className="mt-2.5 pt-2 border-t border-stone-800 text-xs text-emerald-400 flex items-center justify-center gap-1.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>{uploadStatus}</span>
-            </div>
-          )}
         </div>
 
         {/* Comparison Showcase Grid */}

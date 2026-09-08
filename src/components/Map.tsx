@@ -82,8 +82,16 @@ export default function Map({ selectedUnit, onUnitChange }: MapProps) {
 
               <div className="pt-4 border-t border-stone-900 flex flex-col gap-2.5">
                 <div className="flex items-center justify-between text-xs font-mono text-stone-400">
-                  <span>Tel / WhatsApp:</span>
-                  <span className="text-white font-bold">{activeStore.phone}</span>
+                  <span>WhatsApp {activeStore.name}:</span>
+                  <a 
+                    href={`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de falar com o Salão Cachos ao Vento (${activeStore.name}).`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-emerald-400 hover:text-emerald-300 font-bold hover:underline"
+                    title={`Chamar WhatsApp da ${activeStore.name}`}
+                  >
+                    {activeStore.phone}
+                  </a>
                 </div>
                 <div className="flex items-center justify-between text-xs font-mono text-stone-400">
                   <span>Estrutura:</span>

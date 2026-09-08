@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState } from "react";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { STORE_UNITS } from "../types";
 
@@ -22,25 +21,17 @@ const WhatsAppIconLeft = () => (
 
 export default function Hero({ onNavigate, onSelectService, selectedUnit = "anchieta" }: HeroProps) {
   const activeStore = STORE_UNITS.find(u => u.id === selectedUnit) || STORE_UNITS[0];
-  const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const heroImages = [
-    "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?q=80&w=1200",
-    "https://images.unsplash.com/photo-1605497746444-ac9dbd39a685?q=80&w=1200",
-    "https://images.unsplash.com/photo-1595959183075-c1d0a1a1964d?q=80&w=1200",
-    "https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=1200"
-  ];
+  const otherStore = STORE_UNITS.find(u => u.id !== activeStore.id) || STORE_UNITS[1];
 
-  const handleDirectWhatsApp = () => {
-    const text = `Olá! Gostaria de agendar um horário no Salão Cachos ao Vento (${activeStore.name}).`;
-    window.open(`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+  const [bannerSrc, setBannerSrc] = useState<string>("/banner.png");
+
+  const handleBannerError = () => {
+    if (bannerSrc === "/banner.png") {
+      setBannerSrc("/banner.jpg");
+    } else if (bannerSrc === "/banner.jpg") {
+      setBannerSrc("https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?q=80&w=1200");
+    }
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImageIdx((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
 
   return (
     <section id="inicio" className="relative min-h-screen bg-stone-950 pt-24 pb-16 overflow-hidden flex flex-col justify-start">
@@ -70,45 +61,64 @@ export default function Hero({ onNavigate, onSelectService, selectedUnit = "anch
             Salão Cachos ao Vento, especializado em Afro e Cacheados. Resgatamos e exaltamos a potência de cabelos crespos, cacheados e ondulados no Rio de Janeiro através de técnicas limpas e acolhimento focado na sua saúde capilar.
           </p>
 
-          {/* Buttons CTA */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <button
-              onClick={handleDirectWhatsApp}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-stone-950 font-bold uppercase tracking-widest text-xs shadow-xl shadow-emerald-950/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2.5 group"
-              title={`Chamar no WhatsApp (${activeStore.phone})`}
-            >
-              <WhatsAppIconLeft />
-              Agendar no WhatsApp
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
-              onClick={() => onNavigate("servicos")}
-              className="px-6 py-4 rounded-full border border-stone-800 hover:bg-stone-900/50 text-stone-200 hover:text-white transition-colors uppercase tracking-widest text-xs font-bold cursor-pointer"
-            >
-              Ver MENU
-            </button>
+          {/* Buttons CTA with explicit store units */}
+          <div className="mt-8 space-y-3">
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Primary Active Unit WhatsApp Button */}
+              <a
+                href={`https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de agendar um horário no Salão Cachos ao Vento (${activeStore.name}).`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="px-7 py-3.5 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-stone-950 font-bold uppercase tracking-wider text-xs shadow-xl shadow-emerald-950/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2 group"
+                title={`Chamar no WhatsApp da ${activeStore.name} (${activeStore.phone})`}
+              >
+                <WhatsAppIconLeft />
+                <span>WhatsApp {activeStore.name}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+
+              {/* Secondary Other Unit WhatsApp Button */}
+              <a
+                href={`https://wa.me/${otherStore.whatsappNumber}?text=${encodeURIComponent(`Olá! Gostaria de agendar um horário no Salão Cachos ao Vento (${otherStore.name}).`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="px-5 py-3.5 rounded-full bg-stone-900/90 border border-emerald-500/35 hover:border-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-950/50 transition-all text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-md"
+                title={`Chamar no WhatsApp da ${otherStore.name} (${otherStore.phone})`}
+              >
+                <WhatsAppIconLeft />
+                <span>WhatsApp {otherStore.name}</span>
+              </a>
+
+              <button
+                onClick={() => onNavigate("servicos")}
+                className="px-5 py-3.5 rounded-full border border-stone-800 hover:bg-stone-900/50 text-stone-300 hover:text-white transition-colors uppercase tracking-widest text-xs font-bold cursor-pointer"
+              >
+                Ver MENU
+              </button>
+            </div>
+
+            {/* Clear Subtitle Info Showing Units and Numbers */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-stone-400 pt-1 font-mono">
+              <span>📍 Anchieta: <strong className="text-emerald-400 font-normal">(21) 96634-8617</strong></span>
+              <span>•</span>
+              <span>📍 Petrópolis: <strong className="text-emerald-400 font-normal">(21) 99059-9641</strong></span>
+            </div>
           </div>
         </div>
 
-        {/* Right Column - Sliding Banner Image Showcase */}
+        {/* Right Column - Fixed Banner Image */}
         <div className="lg:col-span-6 relative flex justify-center items-center">
           {/* Frame decoration */}
           <div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-amber-600/20 to-yellow-500/10 blur-xl opacity-75 pointer-events-none" />
           
           <div className="relative w-full max-w-lg aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] rounded-2xl overflow-hidden border border-amber-900/30 bg-stone-900/50 shadow-2xl flex flex-col justify-end">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={activeImageIdx}
-                src={heroImages[activeImageIdx]}
-                alt="Banner Cachos ao Vento"
-                referrerPolicy="no-referrer"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-            </AnimatePresence>
+            <img
+              src={bannerSrc}
+              alt="Banner Principal Salão Cachos ao Vento"
+              onError={handleBannerError}
+              referrerPolicy="no-referrer"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
 
             {/* Dark gradient overlay for modern rich typography overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />

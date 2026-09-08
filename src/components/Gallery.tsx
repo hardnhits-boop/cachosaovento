@@ -15,11 +15,11 @@ interface GalleryProps {
 
 export default function Gallery({ onSelectService, onNavigate, selectedUnit = "anchieta" }: GalleryProps) {
   const activeStore = STORE_UNITS.find(u => u.id === selectedUnit) || STORE_UNITS[0];
+  const otherStore = STORE_UNITS.find(u => u.id !== activeStore.id) || STORE_UNITS[1];
 
   const handleServiceClick = (serviceName: string) => {
-    // Exact Portuguese pre-filled message layout:
-    // "quero marcar para ser atendido no serviço (serviço selecionado)"
-    const text = `quero marcar para ser atendido no serviço ${serviceName}`;
+    // Exact Portuguese pre-filled message layout with explicit unit:
+    const text = `Olá! Quero marcar para ser atendido no serviço "${serviceName}" na ${activeStore.name}.`;
     const waUrl = `https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
   };
@@ -64,18 +64,35 @@ export default function Gallery({ onSelectService, onNavigate, selectedUnit = "a
           ))}
         </div>
 
-        {/* Single Unified Action Button */}
-        <div className="mt-8 flex justify-center">
+        {/* Direct WhatsApp Action Buttons with explicit store units */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={() => {
-              const text = "Olá! Quero agendar um horário no Salão Cachos ao Vento.";
+              const text = `Olá! Quero agendar um atendimento no Salão Cachos ao Vento (${activeStore.name}).`;
               const waUrl = `https://wa.me/${activeStore.whatsappNumber}?text=${encodeURIComponent(text)}`;
               window.open(waUrl, "_blank", "noopener,noreferrer");
             }}
-            className="px-8 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 font-sans font-black text-xs uppercase tracking-widest transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+            className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-stone-950 font-sans font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+            title={`Chamar no WhatsApp da ${activeStore.name}`}
           >
-            Agendar Atendimento via WhatsApp
+            <span>WhatsApp {activeStore.name}</span>
+            <span className="font-mono text-[11px] font-bold opacity-90">({activeStore.phone})</span>
           </button>
+
+          {otherStore && (
+            <button
+              onClick={() => {
+                const text = `Olá! Quero agendar um atendimento no Salão Cachos ao Vento (${otherStore.name}).`;
+                const waUrl = `https://wa.me/${otherStore.whatsappNumber}?text=${encodeURIComponent(text)}`;
+                window.open(waUrl, "_blank", "noopener,noreferrer");
+              }}
+              className="px-5 py-3.5 rounded-xl bg-stone-950 border border-emerald-500/40 hover:border-emerald-400 text-emerald-400 hover:text-white font-sans font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+              title={`Chamar no WhatsApp da ${otherStore.name}`}
+            >
+              <span>WhatsApp {otherStore.name}</span>
+              <span className="font-mono text-[11px] font-bold opacity-85">({otherStore.phone})</span>
+            </button>
+          )}
         </div>
 
       </div>

@@ -27,11 +27,12 @@ const InstagramIcon = () => (
 
 export default function Scheduler({ preselectedServiceName, onClearPreselectedService, selectedUnit }: SchedulerProps) {
   const activeStore = STORE_UNITS.find(u => u.id === selectedUnit) || STORE_UNITS[0];
+  const otherStore = STORE_UNITS.find(u => u.id !== activeStore.id) || STORE_UNITS[1];
 
   const handleWhatsAppAction = () => {
     // Standard high-quality WhatsApp URL
     const phoneNum = activeStore.whatsappNumber;
-    let text = "Olá! Gostaria de agendar um atendimento no Cachos ao Vento.";
+    let text = `Olá! Gostaria de agendar um atendimento no Cachos ao Vento (${activeStore.name}).`;
     
     if (preselectedServiceName) {
       text = `Olá! Gostaria de agendar o serviço de "*${preselectedServiceName}*" na *${activeStore.name}*.`;
@@ -106,25 +107,43 @@ export default function Scheduler({ preselectedServiceName, onClearPreselectedSe
             </div>
             
             <h3 className="font-sans font-black text-xl text-stone-100 uppercase tracking-wider mb-1">
-              Chamar no WhatsApp
+              WhatsApp {activeStore.name}
             </h3>
             <span className="text-emerald-400 font-mono text-xs font-bold mb-3 block">
               {activeStore.phone}
             </span>
             
-            <p className="font-sans text-xs sm:text-sm text-stone-400 leading-relaxed max-w-xs mb-8">
-              Fale direto com a nossa equipe da <strong className="text-emerald-400 font-bold">{activeStore.name}</strong> para escolher o profissional, agendar sua vaga ou tirar suas dúvidas em minutos.
+            <p className="font-sans text-xs sm:text-sm text-stone-400 leading-relaxed max-w-xs mb-6">
+              Fale direto com a nossa equipe da <strong className="text-emerald-400 font-bold">{activeStore.name}</strong> para agendar seu horário com rapidez e atenção.
             </p>
             
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleWhatsAppAction();
-              }}
-              className="mt-auto w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase tracking-widest text-xs shadow-lg shadow-emerald-950/50 transition-colors cursor-pointer flex items-center justify-center gap-2"
-            >
-              Enviar Mensagem
-            </button>
+            <div className="mt-auto w-full space-y-2.5">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleWhatsAppAction();
+                }}
+                className="w-full py-3.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold uppercase tracking-wider text-xs shadow-lg shadow-emerald-950/50 transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                title={`Conversar com a ${activeStore.name}`}
+              >
+                <span>WhatsApp {activeStore.name}</span>
+                <span className="font-mono text-[11px] opacity-90">({activeStore.phone})</span>
+              </button>
+
+              {otherStore && (
+                <a
+                  href={`https://wa.me/${otherStore.whatsappNumber}?text=${encodeURIComponent(preselectedServiceName ? `Olá! Gostaria de agendar o serviço de "${preselectedServiceName}" na ${otherStore.name}.` : `Olá! Gostaria de agendar um atendimento no Salão Cachos ao Vento (${otherStore.name}).`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full py-2.5 px-3 rounded-xl bg-stone-900 border border-emerald-500/30 hover:border-emerald-400 text-emerald-400 hover:text-white font-bold uppercase tracking-wider text-[11px] transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                  title={`Conversar com a ${otherStore.name}`}
+                >
+                  <span>WhatsApp {otherStore.name}</span>
+                  <span className="font-mono text-[10px] opacity-85">({otherStore.phone})</span>
+                </a>
+              )}
+            </div>
           </motion.div>
 
           {/* Instagram Connection Card */}
