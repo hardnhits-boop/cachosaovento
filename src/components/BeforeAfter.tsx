@@ -22,8 +22,8 @@ const BEFORE_AFTER_DATA: BeforeAfterItem[] = [
     id: 1,
     title: "Transformação 01",
     description: "Alongamento das espirais, redução do encolhimento e ativação de brilho espelhado com cachos ultra-definidos até as costas.",
-    beforeNames: ["/antes1.jpg", "/1antes.jpg", "/images/antes1.jpg", "/images/1antes.jpg"],
-    afterNames: ["/depois1.jpg", "/1depois.jpg", "/images/depois1.jpg", "/images/1depois.jpg"],
+    beforeNames: ["/images/antes1.jpg", "/antes1.jpg", "/1antes.jpg"],
+    afterNames: ["/images/depois1.jpg", "/depois1.jpg", "/1depois.jpg"],
     beforeFallback: "https://images.unsplash.com/photo-1518887570146-0612132dd618?q=80&w=600",
     afterFallback: "https://images.unsplash.com/photo-1605497746444-ac9dbd39a685?q=80&w=600",
     stylist: "Matias Oliveira"
@@ -32,8 +32,8 @@ const BEFORE_AFTER_DATA: BeforeAfterItem[] = [
     id: 2,
     title: "Transformação 02",
     description: "Tratamento de nutrição e umectação profunda, desenhando cachos bem delineados e alinhados com acabamento sedoso.",
-    beforeNames: ["/antes2.jpg", "/2antes.jpg", "/images/antes2.jpg", "/images/2antes.jpg"],
-    afterNames: ["/depois2.jpg", "/2depois.jpg", "/images/depois2.jpg", "/images/2depois.jpg"],
+    beforeNames: ["/images/antes2.jpg", "/antes2.jpg", "/2antes.jpg"],
+    afterNames: ["/images/depois2.jpg", "/depois2.jpg", "/2depois.jpg"],
     beforeFallback: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600",
     afterFallback: "https://images.unsplash.com/photo-1595959183075-c1d0a1a1964d?q=80&w=600",
     stylist: "Iara Barbosa"
@@ -42,8 +42,8 @@ const BEFORE_AFTER_DATA: BeforeAfterItem[] = [
     id: 3,
     title: "Transformação 03",
     description: "Corte em camadas para dar balanço com finalização fitada, eliminando o frizz e destacando o comprimento em cascata.",
-    beforeNames: ["/antes3.jpg", "/3antes.jpg", "/images/antes3.jpg", "/images/3antes.jpg"],
-    afterNames: ["/depois3.jpg", "/3depois.jpg", "/images/depois3.jpg", "/images/3depois.jpg"],
+    beforeNames: ["/images/antes3.jpg", "/antes3.jpg", "/3antes.jpg"],
+    afterNames: ["/images/depois3.jpg", "/depois3.jpg", "/3depois.jpg"],
     beforeFallback: "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?q=80&w=600",
     afterFallback: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600",
     stylist: "Dandara Santos"
@@ -52,8 +52,8 @@ const BEFORE_AFTER_DATA: BeforeAfterItem[] = [
     id: 4,
     title: "Transformação 04",
     description: "Texturização e abertura da curvatura crespa 4C com tecnologia umectante, valorizando a densidade com definição incrível.",
-    beforeNames: ["/antes4.jpg", "/4antes.jpg", "/images/antes4.jpg", "/images/4antes.jpg"],
-    afterNames: ["/depois4.jpg", "/4depois.jpg", "/images/depois4.jpg", "/images/4depois.jpg"],
+    beforeNames: ["/images/antes4.jpg", "/antes4.jpg", "/4antes.jpg"],
+    afterNames: ["/images/depois4.jpg", "/depois4.jpg", "/4depois.jpg"],
     beforeFallback: "https://images.unsplash.com/photo-1595959183075-c1d0a1a1964d?q=80&w=600",
     afterFallback: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=600",
     stylist: "Dandara Santos"
@@ -62,8 +62,8 @@ const BEFORE_AFTER_DATA: BeforeAfterItem[] = [
     id: 5,
     title: "Transformação 05",
     description: "Realce dos tons iluminados com reestruturação da fibra, conferindo balanço, maleabilidade e definição perfeita.",
-    beforeNames: ["/antes5.jpg", "/5antes.jpg", "/images/antes5.jpg", "/images/5antes.jpg"],
-    afterNames: ["/depois5.jpg", "/5depois.jpg", "/images/depois5.jpg", "/images/5depois.jpg"],
+    beforeNames: ["/images/antes5.jpg", "/antes5.jpg", "/5antes.jpg"],
+    afterNames: ["/images/depois5.jpg", "/depois5.jpg", "/5depois.jpg"],
     beforeFallback: "https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600",
     afterFallback: "https://images.unsplash.com/photo-1620331708837-5e8891515590?q=80&w=600",
     stylist: "Matias Oliveira"
@@ -218,17 +218,6 @@ export default function BeforeAfter() {
                 </div>
 
               </div>
-
-              {/* Sub-text description */}
-              <div className="mt-3 px-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 text-left">
-                <p className="font-sans text-[11px] sm:text-xs text-stone-300 leading-snug">
-                  <strong className="text-amber-400 font-semibold mr-1">{item.title}:</strong>
-                  {item.description}
-                </p>
-                <span className="font-mono text-[9px] sm:text-[10px] text-stone-500 whitespace-nowrap">
-                  Especialista: {item.stylist}
-                </span>
-              </div>
             </div>
           ))}
         </div>
@@ -281,12 +270,12 @@ export default function BeforeAfter() {
             </div>
 
             {/* Enlarged Image */}
-            <div className="relative rounded-2xl overflow-hidden bg-stone-950 border border-stone-800 shadow-2xl max-h-[74vh] sm:max-h-[78vh] flex items-center justify-center">
+            <div className="relative rounded-2xl overflow-hidden bg-stone-950 border border-stone-800 shadow-2xl max-h-[78vh] sm:max-h-[82vh] flex items-center justify-center">
               <img
                 src={getImageSrc(activeModal.item, activeModal.view)}
-                alt={`${activeModal.view === "before" ? "Antes" : "Depois"} - ${activeModal.item.title}`}
+                alt={`${activeModal.view === "before" ? "Antes" : "Depois"} - Cachos ao Vento`}
                 referrerPolicy="no-referrer"
-                className="max-h-[74vh] sm:max-h-[78vh] w-auto max-w-full object-contain rounded-xl"
+                className="max-h-[78vh] sm:max-h-[82vh] w-auto max-w-full object-contain rounded-xl"
               />
               <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-stone-700 text-xs font-bold uppercase tracking-widest">
                 <span className={`w-2 h-2 rounded-full ${activeModal.view === "before" ? "bg-red-500" : "bg-emerald-500"}`} />
@@ -294,16 +283,6 @@ export default function BeforeAfter() {
                   {activeModal.view === "before" ? "Antes" : "Depois"}
                 </span>
               </div>
-            </div>
-
-            {/* Caption in Modal */}
-            <div className="mt-2.5 text-center px-4 max-w-lg">
-              <h4 className="font-sans font-bold text-stone-100 text-sm sm:text-base">
-                {activeModal.item.title} — {activeModal.item.stylist}
-              </h4>
-              <p className="font-sans text-xs text-stone-400 mt-0.5 leading-snug">
-                {activeModal.item.description}
-              </p>
             </div>
 
           </div>
